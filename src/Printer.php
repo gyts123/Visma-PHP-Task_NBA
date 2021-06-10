@@ -13,4 +13,9 @@ class Printer
     {
         echo $this->write($string) . "\n";
     }
+
+    public function writeSeparator(): void
+    {
+        echo str_repeat("=", 100) . "\n";
+    }
 }

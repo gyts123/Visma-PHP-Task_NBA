@@ -4,15 +4,15 @@ namespace App;
 
 use Exception;
 
-class RapidApiClient
+abstract class RapidApiClient
 {
     // Readme in https://rapidapi.com/theapiguy/api/free-nba/details
     private string $baseUrl = 'https://free-nba.p.rapidapi.com/';
     private string $key = '4fdb2c4532msh98db9d8739bd30ap17c82cjsn4e79f97aab5a';
-
-    public function getTeams(): array
-    {
-        $url = 'teams?page=0';
+    /**
+     * @throws Exception
+     */
+    protected function makeGetRequest(string $url){
         $curl = curl_init();
 
         curl_setopt_array($curl, [
@@ -42,13 +42,17 @@ class RapidApiClient
         return json_decode($response, true);
     }
 
-    public function getGames(): array
+    public function getAllValues(string $filterParam = "", mixed $filterData = ""): ?array
     {
-        throw new Exception('Not implemented');
+        $allValues = array();
+        $current_page = 1;
+
+        while (!is_null($values = $this->getValues($filterParam, $filterData, $page = $current_page)) && $values['meta']['total_pages'] >= $current_page) {
+            $allValues = array_merge($allValues, $values['data']);
+            $current_page++;
+        }
+        return $allValues;
     }
 
-    public function getStats(): array
-    {
-        throw new Exception('Not implemented');
-    }
+    abstract function getValues(string $filterParam, mixed $filterData, int $page): ?array;
 }

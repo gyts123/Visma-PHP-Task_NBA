@@ -2,6 +2,9 @@
 
 namespace App;
 
+
+use App\Data\Teams;
+
 class Command
 {
     public function executeHelp(): void
@@ -18,9 +21,8 @@ class Command
     public function teamsList(array $arguments): void
     {
         $printer = new Printer();
-        $rapidApi = new RapidApiClient();
-
-        $teams = $rapidApi->getTeams();
+        $teamsTemplate = new Teams();
+        $teams = $teamsTemplate->getValues();
         $filter = $arguments[0] ?? null;
 
         foreach ($teams['data'] as $team) {
@@ -29,4 +31,21 @@ class Command
             }
         }
     }
+
+    public function gamesList(array $arguments, array $options): void
+    {
+        $printer = new Printer();
+        $gameFacade = new GameFacade();
+
+        $games = $gameFacade->filterGames($options['filter'] ?? null, $arguments[0]);
+
+        if (!empty($games)) {
+            $games = $gameFacade->applySearchRules($games);
+            $gameFacade->showGamesDataWithPlayers($games);
+        } else {
+            $printer->writeLn('No games were found at ' . $arguments[0]);
+        }
+    }
+
+
 }
