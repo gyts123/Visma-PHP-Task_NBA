@@ -18,9 +18,9 @@ class Players
 
     public function getPlayers($game): array
     {
+
         $statsTemplate = new Stats();
         $stats = $statsTemplate->getAllValues("game_ids[]", $game['id']);
-
         $players = array(
             'home' => array(),
             'visitor' => array()

@@ -15,7 +15,7 @@ use App\Rule\SameConferenceRule;
 
 class GameFacade
 {
-    private function showGameData($game, $players)
+    private function showGameData(array $game, array $players)
     {
         $printer = new Printer();
         $printer->writeSeparator();
@@ -31,7 +31,7 @@ class GameFacade
         }
     }
 
-    public function filterGames($filter, $input): array
+    public function filterGames(string $filter, string $input): array
     {
         $gamesFilter = new FilteredGameList();
         $gamesTemplate = new Games();

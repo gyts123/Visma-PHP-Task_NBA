@@ -47,7 +47,7 @@ abstract class RapidApiClient
         $allValues = array();
         $current_page = 1;
 
-        while (!is_null($values = $this->getValues($filterParam, $filterData, $page = $current_page)) && $values['meta']['total_pages'] >= $current_page) {
+        while (!is_null($values = $this->getValues($filterParam, $filterData, $current_page)) && $values['meta']['total_pages'] >= $current_page) {
             $allValues = array_merge($allValues, $values['data']);
             $current_page++;
         }
