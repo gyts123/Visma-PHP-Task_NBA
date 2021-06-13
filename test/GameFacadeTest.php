@@ -84,7 +84,7 @@ class GameFacadeTest extends TestCase
 
     public function testFilterGames(): void
     {
-        $filter = "date";
+        $filter = array("filter" => "date");
         $input = "2021-05-16";
         $gameFacade = new GameFacade();
 

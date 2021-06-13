@@ -31,10 +31,12 @@ class GameFacade
         }
     }
 
-    public function filterGames(string $filter, string $input): array
+    public function filterGames(array $options, string $input): array
     {
         $gamesFilter = new FilteredGameList();
         $gamesTemplate = new Games();
+        $filter = $options['filter'] ?? null;
+
         if ($filter === 'date') {
             $gamesFilter->setGameFilter(new FilterDate($gamesTemplate));
         } elseif ($filter === 'season') {

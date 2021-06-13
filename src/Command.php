@@ -37,7 +37,7 @@ class Command
         $printer = new Printer();
         $gameFacade = new GameFacade();
 
-        $games = $gameFacade->filterGames($options['filter'] ?? null, $arguments[0]);
+        $games = $gameFacade->filterGames($options, $arguments[0]);
 
         if (!empty($games)) {
             $games = $gameFacade->applySearchRules($games);
