@@ -42,3 +42,23 @@ List NBA teams by keyword
 ```bash
 docker-compose run --rm cli teams boston
 ```
+
+List NBA games by date (date format YYYY-MM-DD)
+```bash
+docker-compose run --rm cli games 2021-05-16
+```
+Or by specifying filter
+```bash
+sudo docker-compose run --rm cli games --filter date 2021-05-16
+```
+
+List NBA games by season
+
+```bash
+sudo docker-compose run --rm cli games --filter season 2022
+```
+
+
+
+
+
